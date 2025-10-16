@@ -54,7 +54,10 @@ public class DeptDaoImpl implements DeptDao {
                     int deptno1=rs.getInt("deptno");
                     String dname=rs.getString("dname");
                     String loc=rs.getString("loc");
-                    findNum=new DeptDto(deptno1,dname,loc);
+                    findNum=new DeptDto();
+                    findNum.setDeptno(deptno1);
+                    findNum.setDname(dname);
+                    findNum.setLoc(loc);
                 }
             }
         }
@@ -143,10 +146,10 @@ class DeptDaoImplTest{
 
 
             //③ 수정
-            /*DeptDto updateTest=new DeptDto(90,"","가산동");
+            DeptDto updateTest=new DeptDto(90,"","가산동");
             int update2= deptDao.update(updateTest);
             String msg2=(update2>0)?"수정완료":"수정실패";
-            System.out.println(msg2);*/
+            System.out.println(msg2);
 
             //④ 상세조회
             DeptDto dept=deptDao.findByNum(90);
