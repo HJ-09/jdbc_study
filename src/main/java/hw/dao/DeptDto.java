@@ -36,6 +36,15 @@ public class DeptDto {
         return loc;
     }
 
+    @Override
+    public String toString() {
+        return "DeptDto{" +
+                "deptno=" + deptno +
+                ", dname='" + dname + '\'' +
+                ", loc='" + loc + '\'' +
+                "}\n";
+    }
+
     /*public static void main(String[] args) {
         DeptDto deptDto=new DeptDto(10, "ACCOUNTING","NEW YORK");
         System.out.println(deptDto.deptno);
