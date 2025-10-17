@@ -7,12 +7,12 @@ public class L05EmpDTO { //①번
     private int empno;
     private String ename;
     private String job;
-    private int mgr;
+    private Integer mgr;
 //  private java.util.Date.hiredate;
     private LocalDate hiredate;
-    private double sal;
-    private double comm;
-    private int deptno;
+    private Double sal;
+    private Double comm;
+    private Integer deptno;
     //└─ getter, setter 캡슐화
 
 
@@ -30,24 +30,28 @@ public class L05EmpDTO { //①번
                 "}\n";
     }
 
-    public void setEmpno(int empno){ //setter 규칙. 타입은 void, 매개변수는 필드와 동일.
-        this.empno=empno;
-    }
+    //setter 규칙. 타입은 void, 매개변수는 필드와 동일.
+    //getter 규칙. 매개변수 필요없음
 
-    public int getEmpno(){ //getter 규칙. 매개변수 필요없음
-        return this.empno;
-    }
-
-    public void setEname(String ename){
-        this.ename=ename;
-    }
-
-    public String getEname(){
-        return this.ename;
-    }
     //└─ 거의 대부분의 개발툴은 get, set 자동완성 제공(오른쪽 마우스 클릭 → 생성). 왜? 정형화 되어있어서~
     //lombok: 컴파일시 자동완성하는 라이브러리 ⇒ Spring 할 때 써볼게!
 
+
+    public int getEmpno() {
+        return empno;
+    }
+
+    public void setEmpno(int empno) {
+        this.empno = empno;
+    }
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
 
     public String getJob() {
         return job;
@@ -57,11 +61,11 @@ public class L05EmpDTO { //①번
         this.job = job;
     }
 
-    public int getMgr() {
+    public Integer getMgr() {
         return mgr;
     }
 
-    public void setMgr(int mgr) {
+    public void setMgr(Integer mgr) {
         this.mgr = mgr;
     }
 
@@ -73,31 +77,27 @@ public class L05EmpDTO { //①번
         this.hiredate = hiredate;
     }
 
-    public double getSal() {
+    public Double getSal() {
         return sal;
     }
 
-    public void setSal(double sal) {
+    public void setSal(Double sal) {
         this.sal = sal;
     }
 
-    public double getComm() {
+    public Double getComm() {
         return comm;
     }
 
-    public void setComm(double comm) {
+    public void setComm(Double comm) {
         this.comm = comm;
     }
 
-    public int getDeptno() {
+    public Integer getDeptno() {
         return deptno;
     }
 
-    public void setDeptno(int deptno) {
+    public void setDeptno(Integer deptno) {
         this.deptno = deptno;
     }
-
-
-
-
 }
