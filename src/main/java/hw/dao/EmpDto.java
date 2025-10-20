@@ -8,7 +8,7 @@ public class EmpDto {
     private String job;
     private Integer mgr;
     private LocalDate hiredate;
-    private double sal;
+    private Double sal;
     private Double comm;
     private Integer deptno;
 
@@ -70,7 +70,7 @@ public class EmpDto {
         this.hiredate = hiredate;
     }
 
-    public double getSal() {
+    public Double getSal() {
         return sal;
     }
 
