@@ -126,6 +126,55 @@ public class L09EmpServiceImpl implements L09EmpService{
         return empDAO.updateOne(emp)==1;
     }
 
+    @Override
+    public boolean register(L11EmpValidBean emp) throws SQLException, IllegalArgumentException {
+        //유효성 검증(empno, ename, sal, comm) 필요한가? 놉! EmpValidBean이 하니까~
+        //DB 검증: 사번을 사용중인가? mgr이 존재하나? 부서번호가 존재하나?
+        boolean register=false;
+        try {
+            conn.setAutoCommit(false);
+            conn.commit();
+            L05EmpDTO existEmp=empDAO.findByEmpno(emp.getEmpno());
+            if (existEmp!=null) throw new IllegalArgumentException("이미 있는 사번입니다.");
+            if (emp.getMgr()!=null){
+                L05EmpDTO existMgr=empDAO.findByEmpno(emp.getMgr());
+                if (existMgr==null) throw new IllegalArgumentException("존재하지 않는 번호입니다.");
+            }
+            if (emp.getDeptno()!=null){
+                L07DeptDTO existDept=deptDAO.findByDeptDTO(emp.getDeptno());
+                if (existDept==null) throw new IllegalArgumentException("존재하지 않는 부서번호입니다.");
+            }
+
+            //얘네들은 왜 존재하는거지..?
+            //Controller(Test) -> bean -> Service -> dto -> dao 에서 bean이 dto로..!
+            L05EmpDTO empDTO=new L05EmpDTO();
+            empDTO.setDeptno(emp.getEmpno());
+            empDTO.setEname(emp.getEname());
+            empDTO.setEmpno(emp.getEmpno());
+            empDTO.setJob(emp.getJob());
+            empDTO.setComm(emp.getComm());
+            empDTO.setSal(emp.getSal());
+            empDTO.setMgr(emp.getMgr());
+            empDTO.setHiredate(emp.getHiredate());
+
+            int insert=empDAO.insertOne(empDTO);
+            register=insert>0;
+
+        }catch (Exception e){
+            conn.rollback();
+            throw e;
+        }finally {
+            conn.setAutoCommit(true); //setAutoCommit을 원래대로 돌려놓는..!
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean modify(L11EmpValidBean emp) throws SQLException, IllegalArgumentException {
+        return false;
+    }
+
 
     //▼▼▼ service와 dao가 1대 1로 대칭하는 경우(서비스가 단순한 경우) ▼▼▼
     @Override

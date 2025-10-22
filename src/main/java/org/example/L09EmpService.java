@@ -20,6 +20,10 @@ public interface L09EmpService {
 
     boolean register(L05EmpDTO emp) throws SQLException, IllegalArgumentException; //IllegalArgumentException ⇒ 입력오류. 사원의 이름이 없거나 글자수가 초과되거나 급여가 잘못 입력되거나 등의 오류를 잡아라!
     boolean modify(L05EmpDTO emp) throws SQLException, IllegalArgumentException;
+
+    boolean register(L11EmpValidBean emp) throws SQLException, IllegalArgumentException; //오버로드 => 이름은 같은데 매개변수가 다름!
+    boolean modify(L11EmpValidBean emp) throws SQLException, IllegalArgumentException; //오버로드
+
     boolean remove(int empno) throws SQLException;
 
     List<L05EmpDTO> readAll() throws SQLException;
