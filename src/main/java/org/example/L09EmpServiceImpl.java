@@ -144,18 +144,29 @@ public class L09EmpServiceImpl implements L09EmpService{
                 L07DeptDTO existDept=deptDAO.findByDeptDTO(emp.getDeptno());
                 if (existDept==null) throw new IllegalArgumentException("존재하지 않는 부서번호입니다.");
             }
+            //오류검사 끝내고 ↓↓
 
-            //얘네들은 왜 존재하는거지..?
+            //얘네들은 왜 존재하냐면 ↓↓
             //Controller(Test) -> bean -> Service -> dto -> dao 에서 bean이 dto로..!
-            L05EmpDTO empDTO=new L05EmpDTO();
-            empDTO.setDeptno(emp.getEmpno());
+            /*L05EmpDTO empDTO=new L05EmpDTO();
+            empDTO.setDeptno(emp.getDeptno());
             empDTO.setEname(emp.getEname());
             empDTO.setEmpno(emp.getEmpno());
             empDTO.setJob(emp.getJob());
             empDTO.setComm(emp.getComm());
             empDTO.setSal(emp.getSal());
             empDTO.setMgr(emp.getMgr());
-            empDTO.setHiredate(emp.getHiredate());
+            empDTO.setHiredate(emp.getHiredate());*/
+
+            //Builder 패턴
+            L05EmpDTO empDTO=new L05EmpDTO.Builder(emp.getEmpno(), emp.getEname())
+                    .mgr(emp.getMgr())
+                    .comm(emp.getComm())
+                    .sal(emp.getSal())
+                    .hiredate(emp.getHiredate())
+                    .job(emp.getJob())
+                    .deptno(emp.getDeptno())
+                    .builder();
 
             int insert=empDAO.insertOne(empDTO);
             register=insert>0;
@@ -167,12 +178,23 @@ public class L09EmpServiceImpl implements L09EmpService{
             conn.setAutoCommit(true); //setAutoCommit을 원래대로 돌려놓는..!
         }
 
-        return false;
+        return register;
     }
 
     @Override
     public boolean modify(L11EmpValidBean emp) throws SQLException, IllegalArgumentException {
-        return false;
+        //수정할 수 있는게 무엇인지..? 이름, 부서번호, 직무, 커미션, 급여, 상사번호
+        boolean modify=false;
+        try (Connection conn=L03DBFactory.getConn()){
+            L05EmpDTO existMo=empDAO.findByEmpno(emp.getEmpno());
+
+            if (emp.getDeptno()!=null){
+                L07DeptDTO existDept=deptDAO.findByDeptDTO(emp.getDeptno());
+                if(existDept==null) throw new IllegalArgumentException("존재하지 않는 부서번호입니다.");
+            }
+        }
+
+        return modify;
     }
 
 

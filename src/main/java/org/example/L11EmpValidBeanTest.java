@@ -2,6 +2,7 @@ package org.example;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class L11EmpValidBeanTest {
     public static void main(String[] args) {
@@ -19,10 +20,12 @@ public class L11EmpValidBeanTest {
         try (Connection conn=L03DBFactory.getConn()){
             L09EmpService empService=new L09EmpServiceImpl(conn);
 
-            System.out.printf("삭제 성공: "+empService.remove(5555));
+            System.out.println("삭제 성공: "+empService.remove(5555));
 
-            System.out.printf("등록 성공: "+empService.register(empValidBean));
-            //System.out.printf(empService.readOne(5555)); //왜 오류나는지..?
+            System.out.println("등록 성공: "+empService.register(empValidBean));
+            System.out.println(empService.readOne(5555));
+
+            //System.out.println("수정 성공: "+empService.modify(empValidBean));
         } catch (SQLException e){
             e.printStackTrace();
         }
